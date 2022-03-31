@@ -1,7 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function AddItem() {
 
+  const intiallst = ()=>{
+    let lst = localStorage.getItem('data')
+    if(lst){
+      return JSON.parse(lst)
+    }
+    else
+    return [[]]
+  }
+  const[itemslst,setitemslst] = useState(intiallst());
+
+  useEffect(()=>{
+      localStorage.setItem('data',JSON.stringify(itemslst))
+  },[[itemslst]])
+
+ 
   const [items,setitem] = useState();
   const changeitem = (event)=>{
     setitem(event.target.value);
@@ -9,7 +24,6 @@ export default function AddItem() {
 
   const [desc,setdesc] = useState();
 
-  const[itemslst,setitemslst] = useState([[]]);
 
   const listofitems = () =>{
     setitemslst((olditems)=>{
